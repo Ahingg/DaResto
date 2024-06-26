@@ -1,0 +1,10 @@
+package factory;
+
+import mediator.Mediator;
+import model.Customer;
+
+public class CustomerFactory {
+	public static Customer CreateCustomer(Mediator mediator) {
+		return new Customer(NameGenerator.generate(mediator), mediator);
+	}
+}

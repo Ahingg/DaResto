@@ -1,0 +1,37 @@
+package model;
+
+import state.ChefState;
+import state.chef_state.IdleState;
+
+
+public class Chef extends Worker{
+	private Integer skill;
+	private ChefState state;
+	public Chef(String name) {
+		super(name);
+		this.skill = 1;
+		state = new IdleState();
+	}
+	
+	public Integer getSkill() {
+		return skill;
+	}
+	
+	public void setSkill(Integer skill) {
+		this.skill = skill;
+	}
+	
+	public void upgradeSkill() {
+		this.skill++;
+	}
+
+	public void resetState() {
+		state.reset(this);
+	}
+
+	public void nextState() {
+		state.next(this);
+	}
+	
+	
+}

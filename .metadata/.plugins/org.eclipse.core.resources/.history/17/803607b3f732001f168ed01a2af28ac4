@@ -1,0 +1,35 @@
+package game;
+
+import java.util.Scanner;
+
+import facade.GameFacade;
+import factory.ChefFactory;
+import factory.CustomerGenerator;
+import factory.WaiterFactory;
+import mediator.Mediator;
+import model.Restaurant;
+import singleton.RestaurantSingleton;
+import threads.MainThread;
+import threads.PrinterThread;
+
+
+public class PlayGame {
+	Scanner sc = new Scanner(System.in);
+	private boolean onPause = false;
+	private boolean gameEnd = false;
+	private Mediator mediator;
+	public PlayGame() {
+		greet();
+	}
+	
+	private void greet() {
+		GameFacade facade = new GameFacade();
+	}
+	public boolean getPauseState() { return onPause; }
+	
+	public boolean getEndState() { return gameEnd; }
+	
+	public Mediator getMediator() { return mediator; }
+}
+
+

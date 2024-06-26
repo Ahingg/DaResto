@@ -1,0 +1,144 @@
+package utils;
+
+import mediator.Mediator;
+import model.Chef;
+import model.Customer;
+import model.Restaurant;
+import model.Waiter;
+
+public class Printer {
+	public static void PrintGameStatus(Mediator mediator) {
+		Integer a = mediator.getCustomerCount();
+		Integer b = mediator.getChefCount();
+		Integer c = mediator.getWaiterCount();
+		Integer maxIter = getMax(a, getMax(b, c));
+		Restaurant restaurant = mediator.getRestaurant()
+		System.out.printf("Restaurant '%s' is on Business\n", restaurant.getName());
+		System.out.println();
+		printRestaurantStatus(restaurant);
+		
+		System.out.println("====================================================");
+		for(int i  = 0; i< maxIter ;i++) {
+			if(a > i)  printCustomerStatus((mediator.getCustomerList().get(i)));
+			else printSpace(26);
+			
+			if (b > i) printWorkerStatus(mediator.getWaiterList().get(i));
+			else printSpace(22);
+			
+			if(c > i) printWorkerStatus(mediator.getChefList().get(i));
+			else printSpaceLn(15);
+		}
+		
+		System.out.println("Press enter to go to pause menu");
+	}
+	
+	
+	
+	public static Integer getMax(int a, int b) {
+		return (a > b) ? a : b;
+	}
+	
+	public static void printRestaurantStatus(Restaurant restaurant) {
+
+		System.out.println("Status");
+		System.out.println("Money : Rp." + restaurant.getGold());
+		System.out.println("Score : " + restaurant.getScore() + " Points" );
+		System.out.println("Size : " + restaurant.getSeat() + " Seats" );
+		System.out.println();
+	}
+	
+	public static void printPauseMainMenu(Restaurant restaurant) {
+		printRestaurantStatus(restaurant);
+		System.out.printf("1. Continue Business\n");
+		System.out.printf("2. Upgrade Restaurant\n");
+		System.out.printf("3. Close Business\n");
+		System.out.printf("Input [1..3] > ");
+	}
+	
+	public static void printUpgradeMainMenu(Mediator mediator) {
+		Restaurant r = mediator.getRestaurant();
+		printRestaurantStatus(r);
+		System.out.printf("1. Increase Restaurant's Seat <Rp. %d>\n", r.getUpgradeSeatCost());
+		System.out.printf("2. Hire New Employee\n");
+		System.out.printf("3. Upgrade Waiter <Rp. 150>\n");
+		System.out.printf("4. Upgrade Cook <Rp. 150>\n");
+		System.out.printf("5. Back to Pause Menu\n");
+		System.out.printf("Input [1..5] > ");
+	}
+	
+	public static void printHireEmployeeMenu(Mediator mediator) {
+		Restaurant r = mediator.getRestaurant();
+		printRestaurantStatus(r);
+		System.out.printf("1. Hire New Waiter <Rp. %d>\n", mediator.getAddWaiterCost());
+		System.out.printf("2. Hire New Cook <Rp. %d>\n", mediator.getAddChefCost());
+		System.out.printf("4. Back To Upgrade Menu\n");
+		System.out.printf("Input [1..3] > ");
+	}
+	
+	public static void printWaiterTable(Mediator mediator) {
+		System.out.println("UPGRADE WAITER <Rp. 150>");
+		System.out.println("------------------------");
+		System.out.println("| No. | Initial | Speed |");
+		System.out.println("------------------------");
+		int i = 1;
+		for(Waiter waiter : mediator.getWaiterList()) {
+			System.out.printf("| %-2d  | %-2s      | %d     |\n", i, waiter.getName(), waiter.getSpeed());
+		}
+		System.out.println("------------------------");
+		System.out.println("Input Employee's number to Upgrade [0 to exit] > " );
+		
+	}
+	
+	public static void printChefTable(Mediator mediator) {
+		System.out.println("UPGRADE CHEF <Rp. 150>");
+		System.out.println("--------------------------------");
+		System.out.println("| No. | Initial | Speed | Skill |");
+		System.out.println("--------------------------------");
+		int i = 1;
+		for(Chef chef : mediator.getChefList()) {
+			System.out.printf("| %-2d  | %-2s      | %d     | %d     |\n", i, chef.getName(), chef.getSpeed(), chef.getSkill());
+		}
+		System.out.println("--------------------------------");
+		System.out.println("Input Employee's number to Upgrade [0 to exit] > " );
+		
+	}
+	
+	
+	
+	public static void printCustomerStatus(Customer customer) {
+		System.out.printf(" %s <%d>,", customer.getName(), customer.getTolerance() );
+		System.out.printf("%13s  |",customer.getState().getPrintFormat());
+	}
+	
+	public static void printWorkerStatus(Waiter waiter) {
+		System.out.printf(" %s,", waiter.getName());
+		System.out.printf("%17s |" , waiter.getState().getPrintFormat());
+	}
+	
+	public static void printWorkerStatus(Chef chef) {
+		System.out.printf("  %s,", chef.getName());
+		System.out.printf("%10s |\n" , chef.getState().getPrintFormat());
+	}
+	
+	
+	
+	
+	
+	
+	
+	public static void printSpace(int x) {
+		for(int i = 0;i<x;i++) {
+			System.out.print(" ");
+		}
+		System.out.print("|");
+	}
+	
+	public static void printSpaceLn(int x) {
+		for(int i = 0;i<x;i++) {
+			System.out.print(" ");
+		}
+		System.out.println("|");
+	}
+	
+	
+}

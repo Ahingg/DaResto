@@ -1,0 +1,8 @@
+package state;
+
+import model.Customer;
+import model.Waiter;
+
+public interface CustomerState {
+	void nextState(Customer state);
+}

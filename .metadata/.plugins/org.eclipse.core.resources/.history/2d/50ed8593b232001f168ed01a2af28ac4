@@ -1,0 +1,22 @@
+package state.customer_state;
+
+import model.Customer;
+import state.CustomerState;
+
+public class WaitDeliverState  implements CustomerState{
+
+
+
+	@Override
+	public String getPrintFormat() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void changeState(Customer state) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

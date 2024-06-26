@@ -1,0 +1,26 @@
+package state.customer_state;
+
+import model.Customer;
+import model.Waiter;
+import state.CustomerState;
+
+public class OrderState implements CustomerState{
+	
+	
+	public OrderState(Customer customer) {
+		while(customer.getTolerance() >= 0) {
+			try {
+				Thread.sleep(2000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+
+	@Override
+	public void nextState(Customer customer) {
+		// TODO Auto-generated method stub
+	}
+
+}

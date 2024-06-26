@@ -1,0 +1,9 @@
+package observer;
+
+import model.Customer;
+
+public interface Broadcaster {
+	public void addObserver(CustomerGenerator t);
+	public void removeObserver(CustomerGenerator t);
+	public void notifyObserver();
+}

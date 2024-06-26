@@ -1,0 +1,33 @@
+package state.chef_state;
+
+import model.Chef;
+import state.ChefState;
+import threads.WaiterThread;
+
+public class CookingState implements ChefState{
+
+	public CookingState(Chef chef) {
+		// TODO Auto-generated constructor stub
+		WaiterThread wt = new WaiterThread(6- chef.getSpeed());
+		wt.run();
+	}
+	
+	@Override
+	public void next(Chef chef) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void reset(Chef chef) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getPrintFormat() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

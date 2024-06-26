@@ -1,0 +1,86 @@
+package model;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Comparator;
+
+public class HighScore {
+    private ArrayList<ScoreEntry> highScoreList;
+    private static final String FILE_NAME = "highscore.txt";
+
+    public HighScore() {
+        highScoreList = new ArrayList<>();
+        loadHighScores();
+    }
+
+    private void loadHighScores() {
+        try (BufferedReader br = new BufferedReader(new FileReader(FILE_NAME))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split("#");
+                if (parts.length == 2) {
+                    String name = parts[0];
+                    int score = Integer.parseInt(parts[1]);
+                    highScoreList.add(new ScoreEntry(name, score));
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error reading high scores: " + e.getMessage());
+        }
+        highScoreList.sort(Comparator.comparingInt(ScoreEntry::getScore).reversed());
+    }
+
+    public void addHighScore(String name, int score) {
+        highScoreList.add(new ScoreEntry(name, score));
+        highScoreList.sort(Comparator.comparingInt(ScoreEntry::getScore).reversed());
+        saveHighScores();
+    }
+
+    private void saveHighScores() {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_NAME))) {
+            for (ScoreEntry entry : highScoreList) {
+                bw.write(entry.getName() + "#" + entry.getScore());
+                bw.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void printHighScores() {
+        System.out.println("High Scores:");
+        for (ScoreEntry entry : highScoreList) {
+            System.out.println(entry.getName() + ": " + entry.getScore());
+        }
+    }
+    
+    public ArrayList<ScoreEntry> getTopScores() {
+        ArrayList<ScoreEntry> a= new ArrayList<>();
+        for(int i=0;i<10;i++) {
+        	a.add(highScoreList.get(i));
+        }
+        return a;
+    }
+
+    public static class ScoreEntry {
+        private final String name;
+        private final int score;
+
+        public ScoreEntry(String name, int score) {
+            this.name = name;
+            this.score = score;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public int getScore() {
+            return score;
+        }
+    }
+}

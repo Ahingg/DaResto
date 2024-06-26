@@ -1,0 +1,34 @@
+package state.waiter_state;
+
+import model.Customer;
+import model.Waiter;
+import state.WaiterState;
+import threads.WaiterThread;
+
+public class TakeOrderState implements WaiterState{
+
+	private Customer customer;
+
+	public TakeOrderState(Customer customer, Waiter waiter) {
+		this.customer = customer;
+		WaiterThread wt = new WaiterThread(6 - waiter.getSpeed());
+		wt.run();
+	}
+	
+	public String getPrintFormat() {
+		return "take order<"+ customer.getName() +">";
+	}
+
+	@Override
+	public void reset(Waiter waiter) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void changeState(WaiterState state) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

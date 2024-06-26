@@ -1,0 +1,36 @@
+package model;
+
+public abstract class Worker{
+
+	protected String name;
+	protected Integer speed;
+	public Worker(String name) {
+		// TODO Auto-generated constructor stub
+		this.name = name;
+		this.speed = 1;
+	}
+	
+	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public void upgradeSpeed() {
+		this.speed++;
+	}
+	
+	public Integer getSpeed() {
+		return speed;
+	}
+	public void setSpeed(Integer speed) {
+		this.speed = speed;
+	}
+	
+	
+	
+	
+
+}

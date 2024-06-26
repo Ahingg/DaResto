@@ -1,0 +1,54 @@
+package game;
+
+import java.util.Scanner;
+
+import factory.ChefFactory;
+import factory.CustomerGenerator;
+import factory.WaiterFactory;
+import mediator.Mediator;
+import model.Restaurant;
+import singleton.RestaurantSingleton;
+import threads.MainThread;
+import utils.Printer;
+
+
+public class PlayGame {
+	Scanner sc = new Scanner(System.in);
+	private boolean onPause = false;
+	private boolean gameEnd = false;
+	private Mediator mediator;
+	public PlayGame() {
+		greet();
+		
+	}
+	
+	private void greet() {
+		Restaurant restaurant = RestaurantSingleton.getInstance();
+		System.out.print("Insert Your Restaurant Name[3-15] : ");
+		String name = sc.nextLine();
+		
+		restaurant.setName(name);
+		
+		Mediator mediator = new Mediator(restaurant);
+		mediator.addWaiter(WaiterFactory.createWaiter(mediator));
+		mediator.addWaiter(WaiterFactory.createWaiter(mediator));
+		mediator.addChef(ChefFactory.createChef(mediator));
+		mediator.addChef(ChefFactory.createChef(mediator));
+		
+		
+		MainThread mainThread = new MainThread(mediator);
+		CustomerGenerator customerThreadGenerator = new CustomerGenerator(mediator);
+		
+		mainThread.addObserver(customerThreadGenerator);
+		mainThread.start();
+		
+
+	}
+	public boolean getPauseState() { return onPause; }
+	
+	public boolean getEndState() { return gameEnd; }
+	
+	public Mediator getMediator() { return mediator; }
+}
+
+

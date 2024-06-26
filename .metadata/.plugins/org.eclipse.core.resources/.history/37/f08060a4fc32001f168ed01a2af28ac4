@@ -1,0 +1,19 @@
+package threads;
+
+import facade.GameFacade;
+
+public class EnterListener extends Thread{
+	public EnterListener() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		while(!GameFacade.end) {
+			if(!GameFacade.paused) {
+				
+			}
+		}
+	}
+}

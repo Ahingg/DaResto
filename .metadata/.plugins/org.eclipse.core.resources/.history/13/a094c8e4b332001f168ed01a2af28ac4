@@ -1,0 +1,24 @@
+package threads;
+
+import model.Waiter;
+
+public class WaiterThread extends Thread{
+	private int t;
+
+	public WaiterThread(int t) {
+		this.t = t;
+	}
+	@Override
+	public void run() {
+		startCount(t);
+	}
+	
+	private void startCount(int t) {
+		try {
+			Thread.sleep(t*1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+}

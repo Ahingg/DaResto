@@ -1,0 +1,10 @@
+package factory;
+
+import model.Waiter;
+
+public class WaiterFactory {
+	
+	public static Waiter createWaiter() {
+		return new Waiter()
+	}
+}

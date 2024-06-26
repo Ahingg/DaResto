@@ -1,0 +1,32 @@
+package factory;
+
+
+import java.util.Random;
+
+import model.Restaurant;
+import singleton.RestaurantSingleton;
+
+public class NameGenerator {
+	private static final String alphabetList = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	private static StringBuilder sb;
+	
+	public static String generate() {
+		
+		String newName = generateString();
+		Restaurant r = RestaurantSingleton.getInstance();
+		while(true) {
+			if(r.checkName(newName)) break;
+			else newName = generateString();
+		}
+		return newName;
+	}
+	
+	private static String generateString() {
+		sb = new StringBuilder(2);
+		Random rand = new Random();
+		sb.append((alphabetList.charAt(rand.nextInt(26))));
+		sb.append((alphabetList.charAt(rand.nextInt(26))));
+		return sb.toString();
+	}
+
+}

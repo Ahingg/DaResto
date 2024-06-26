@@ -1,0 +1,10 @@
+package observer;
+
+import factory.CustomerThreadGenerator;
+import threads.CustomerThread;
+
+public interface Broadcaster {
+	public void addObserver(CustomerThreadGenerator t);
+	public void removeObserver(CustomerThreadGenerator t);
+	public void notifyObserver(CustomerThreadGenerator t);
+}

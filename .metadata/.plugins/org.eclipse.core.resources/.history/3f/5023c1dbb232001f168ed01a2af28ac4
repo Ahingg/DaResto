@@ -1,0 +1,30 @@
+package state.waiter_state;
+
+import model.Chef;
+import model.Customer;
+import model.Waiter;
+import state.WaiterState;
+
+public class BringOrderState implements WaiterState{
+	private Chef chef;
+	private Customer customer;
+
+	public BringOrderState(Chef chef, Customer customer) {
+		// TODO Auto-generated constructor stub
+		this.chef = chef;
+		this.customer = customer;
+	}
+	
+	@Override
+	public void reset(Waiter waiter) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getPrintFormat() {
+		// TODO Auto-generated method stub
+		return "bring order<" + chef.getName() + ">";
+	}
+
+}

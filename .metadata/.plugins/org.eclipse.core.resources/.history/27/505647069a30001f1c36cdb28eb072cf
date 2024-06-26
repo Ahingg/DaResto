@@ -1,0 +1,23 @@
+package factory;
+
+import mediator.Mediator;
+import model.Customer;
+import model.Restaurant;
+import observer.Observer;
+import threads.CustomerThread;
+
+public class CustomerThreadGenerator implements Observer{
+	private Mediator mediator;
+
+	public CustomerThreadGenerator(Mediator mediator) {
+		// TODO Auto-generated constructor stub
+		this.mediator = mediator;
+	}
+	@Override
+	public void generateCustomer() {
+		// TODO Auto-generated method stub
+		CustomerThread ct = new CustomerThread(CustomerFactory.CreateCustomer(), this.mediator);
+		mediator.addCustomer(ct);
+	}
+
+}

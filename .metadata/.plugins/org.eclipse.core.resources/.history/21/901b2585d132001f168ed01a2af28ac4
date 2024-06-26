@@ -1,0 +1,34 @@
+package state.waiter_state;
+
+import model.Chef;
+import model.Customer;
+import model.Waiter;
+import state.WaiterState;
+
+public class ServeState  implements WaiterState{
+	Customer customer;
+	public ServeState(Customer customer, Chef chef) {
+		// TODO Auto-generated constructor stub
+		this.customer = customer;
+		
+	}
+	
+	@Override
+	public void reset(Waiter waiter) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getPrintFormat() {
+		// TODO Auto-generated method stub
+		return "serving";
+	}
+
+	@Override
+	public void changeState(WaiterState state) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

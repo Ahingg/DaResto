@@ -1,0 +1,39 @@
+package threads;
+
+import java.util.ArrayList;
+
+import com.sun.tools.javac.code.Attribute.Array;
+
+import factory.CustomerThreadGenerator;
+import model.Restaurant;
+import observer.Broadcaster;
+import observer.Observer;
+import singleton.RestaurantSingleton;
+
+public class MainThread extends Thread implements Broadcaster{
+	private Restaurant restaurant = RestaurantSingleton.getInstance();
+	private boolean onPause = false;
+	private ArrayList<Observer> observer;
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		while(true) {
+			
+		}
+	}
+	@Override
+	public void addObserver(CustomerThreadGenerator t) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void removeObserver(CustomerThreadGenerator t) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void notifyObserver(CustomerThreadGenerator t) {
+		// TODO Auto-generated method stub
+		
+	}
+}

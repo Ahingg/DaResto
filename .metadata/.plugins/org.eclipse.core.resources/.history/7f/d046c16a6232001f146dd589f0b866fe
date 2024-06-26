@@ -1,0 +1,21 @@
+package threads;
+
+import model.Waiter;
+
+public class WaiterThread extends Thread{
+	private int t;
+	private Waiter waiter;
+	
+	public WaiterThread(int t, Waiter waiter) {
+		this.t = t;
+		this.waiter = waiter;
+	}
+	@Override
+	public void run() {
+		
+	}
+	
+	public void StartCount(int t) {
+		Thread.sleep(millis);
+	}
+}

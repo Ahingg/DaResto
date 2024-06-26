@@ -1,0 +1,33 @@
+package game;
+
+import java.util.Scanner;
+
+import factory.CustomerThreadGenerator;
+import mediator.Mediator;
+import model.Restaurant;
+import singleton.RestaurantSingleton;
+import threads.MainThread;
+
+
+public class PlayGame {
+	Scanner sc = new Scanner(System.in);
+	public PlayGame() {
+		greet();
+		
+	}
+	
+	private void greet() {
+		Restaurant restaurant = RestaurantSingleton.getInstance();
+		System.out.print("Insert Your Restaurant Name[3-15] : ");
+		String name = sc.nextLine();
+		
+		restaurant.setName(name);
+		
+		Mediator mediator = new Mediator(restaurant);
+	
+		MainThread mainThread = new MainThread(mediator);
+		CustomerThreadGenerator customerThreadGenerator = new CustomerThreadGenerator(mediator);
+		mainThread.addObserver(customerThreadGenerator);
+		mainThread.run();
+	}
+}

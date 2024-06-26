@@ -1,0 +1,29 @@
+package model;
+
+import state.WaiterState;
+
+public class Waiter extends Worker{
+
+	private WaiterState state;
+	public Waiter(String name) {
+		super(name);
+	}
+	
+	public void nextState() {
+		state.next(this);
+	}
+	
+	public void resetState() {
+		state.reset(this);
+	}
+	
+	public void setState(WaiterState state) {
+		this.state = state;
+	}
+	
+	public WaiterState getState() {
+		return state;
+	}
+	
+
+}

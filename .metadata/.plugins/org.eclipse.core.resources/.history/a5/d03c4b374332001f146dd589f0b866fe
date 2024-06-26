@@ -1,0 +1,19 @@
+package state.customer_state;
+
+import model.Customer;
+import state.CustomerState;
+
+public class OrderState implements CustomerState{
+	
+	
+	public OrderState() {
+		
+	}
+
+	@Override
+	public void nextState(Customer customer) {
+		// TODO Auto-generated method stub
+		customer.setState(new OrderingState());
+	}
+
+}

@@ -1,0 +1,8 @@
+package state;
+
+import model.Waiter;
+
+public interface WaiterState {
+	void reset(Waiter waiter);
+	String getPrintFormat();
+}

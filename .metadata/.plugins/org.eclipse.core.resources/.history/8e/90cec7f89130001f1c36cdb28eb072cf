@@ -1,0 +1,14 @@
+package factory;
+
+import model.Restaurant;
+import observer.Observer;
+
+public class CustomerThreadGenerator implements Observer{
+
+	@Override
+	public void generateCustomer(Restaurant r) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

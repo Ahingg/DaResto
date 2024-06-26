@@ -1,0 +1,37 @@
+package threads;
+
+import mediator.Mediator;
+import model.Customer;
+import model.Waiter;
+import state.customer_state.OrderState;
+
+public class CustomerThread extends Thread{
+	
+	private Customer customer;
+	private Mediator mediator;
+	private boolean onPause = false;
+	public CustomerThread(Customer customer, Mediator mediator) {
+		this.customer = customer;
+		this.mediator = mediator;
+	}
+	
+	public Customer getCustomer() {
+		return customer;
+	}
+	
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		customer.setState(new OrderState());
+		order();
+		while(customer.getState() instanceof OrderState || onPause) {
+			
+		}
+	}
+	
+	private void order() {
+		mediator
+		
+	}
+	
+}

@@ -1,0 +1,9 @@
+package factory;
+
+import model.Customer;
+
+public class CustomerFactory {
+	public static Customer CreateCustomer() {
+		return new Customer(NameGenerator.generate());
+	}
+}

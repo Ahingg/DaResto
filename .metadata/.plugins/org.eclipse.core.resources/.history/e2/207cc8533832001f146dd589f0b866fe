@@ -1,0 +1,11 @@
+package factory;
+
+import model.Chef;
+
+public class ChefFactory {
+	public static Chef createChef(Mediator mediator) {
+		Chef newChef = new Chef();
+		
+		return newChef;
+	}
+}

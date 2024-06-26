@@ -1,0 +1,31 @@
+package state.waiter_state;
+
+import model.Customer;
+import model.Waiter;
+import state.WaiterState;
+
+public class WaitCookState  implements WaiterState{
+	Customer customer;
+	public WaitCookState(Customer customer) {
+		// TODO Auto-generated constructor stub
+	}
+	
+	@Override
+	public void next(Waiter waiter) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void reset(Waiter waiter) {
+		// TODO Auto-generated method stub
+		waiter.setState(new IdleState());
+	}
+
+	@Override
+	public String getPrintFormat() {
+		// TODO Auto-generated method stub
+		return "wait cook";
+	}
+
+}

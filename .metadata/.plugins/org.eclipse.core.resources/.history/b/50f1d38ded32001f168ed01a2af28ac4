@@ -1,0 +1,54 @@
+package state.waiter_state;
+
+import model.Chef;
+import model.Customer;
+import model.Waiter;
+import state.WaiterState;
+
+public class BringOrderState implements WaiterState{
+	private Chef chef;
+	private Customer customer;
+	private Waiter waiter;
+
+	public BringOrderState(Chef chef, Customer customer, Waiter waiter) {
+		// TODO Auto-generated constructor stub
+		this.chef = chef;
+		this.customer = customer;
+		this.waiter = waiter;
+		
+		new Thread(() -> {
+			try {
+				Thread.sleep(1000);
+				
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}).start();;
+	}
+	
+	
+	
+	@Override
+	public void reset(Waiter waiter) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getPrintFormat() {
+		// TODO Auto-generated method stub
+		return "bring order<" + chef.getName() + ">";
+	}
+
+	@Override
+	public void changeState(WaiterState state) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+//	public Waiter getWaiter() {return waiter;}
+//	public Chef getChef() { return chef; }
+//	public Customer getCustomer (){ return customer; }
+
+}

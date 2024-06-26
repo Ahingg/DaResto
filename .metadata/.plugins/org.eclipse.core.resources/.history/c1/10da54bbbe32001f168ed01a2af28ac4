@@ -1,0 +1,41 @@
+package state.waiter_state;
+
+import model.Customer;
+import model.Waiter;
+import state.WaiterState;
+import threads.WaiterThread;
+
+public class TakeOrderState implements WaiterState{
+
+	private Customer customer;
+
+	public TakeOrderState(Customer customer, Waiter waiter) {
+		this.customer = customer;
+		new Thread(() -> {
+			try {
+				Thread.sleep(6000 - waiter.getSpeed()*1000);
+			} catch (InterruptedException e) {
+				// TODO: handle exception
+				return;
+			}
+		}).start
+		waiter.getState().changeState(new WaitCookState(customer));
+	}
+	
+	public String getPrintFormat() {
+		return "take order<"+ customer.getName() +">";
+	}
+
+	@Override
+	public void reset(Waiter waiter) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void changeState(WaiterState state) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

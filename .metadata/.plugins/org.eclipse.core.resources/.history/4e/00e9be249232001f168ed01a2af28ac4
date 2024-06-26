@@ -1,0 +1,12 @@
+package threads;
+
+import model.Customer;
+
+public class CustomerToleranceCounter {
+	private int interval;
+	private Customer customer;
+	
+	public CustomerToleranceCounter() {
+		
+	}
+}

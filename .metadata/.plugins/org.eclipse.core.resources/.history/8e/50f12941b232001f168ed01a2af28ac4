@@ -1,0 +1,18 @@
+package state.customer_state;
+
+import model.Customer;
+import state.CustomerState;
+
+public class OrderState implements CustomerState{
+	
+	public OrderState(Customer customer) {
+
+	}
+
+	@Override
+	public String getPrintFormat() {
+		// TODO Auto-generated method stub
+		return "order";
+	}
+
+}

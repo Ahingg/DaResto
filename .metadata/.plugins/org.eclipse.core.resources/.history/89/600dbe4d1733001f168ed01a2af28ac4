@@ -1,0 +1,265 @@
+package mediator;
+
+
+import java.util.ArrayList;
+
+import factory.ChefFactory;
+import factory.WaiterFactory;
+import model.Chef;
+import model.Customer;
+import model.Restaurant;
+import model.Waiter;
+import model.Worker;
+import state.customer_state.OrderState;
+import state.customer_state.OrderingState;
+import state.customer_state.WaitCookState;
+import state.customer_state.WaitFoodState;
+import state.waiter_state.BringOrderState;
+import state.waiter_state.IdleState;
+import state.waiter_state.ServeState;
+import state.waiter_state.TakeOrderState;
+
+public class Mediator {
+	private Restaurant restaurant;
+	private ArrayList<Customer> customerList;
+	private ArrayList<Waiter> waiterList;
+	private ArrayList<Chef> chefList;
+	
+	
+	
+	public Mediator(Restaurant restaurant) {
+		this.restaurant = restaurant;
+		this.customerList = new ArrayList<>();
+		this.waiterList = new ArrayList<>();
+		this.chefList =  new ArrayList<>();
+	}
+	
+	public void addCustomer(Customer ct) {
+		customerList.add(ct);
+		ct.setState(new OrderState(ct));
+	}
+	
+	public synchronized boolean  customerOrder(Customer customer) {
+		// Search for idle Waiter then change each of their ah apa lah dong pun mania itu
+		if(!(customer.getState() instanceof OrderState)) return true;
+		synchronized(waiterList) {
+			for(Waiter waiter :  waiterList) {
+				if(waiter.getState() instanceof IdleState) {
+					//change the state of both customer and waiter
+					customer.setState(new OrderingState(waiter));
+					waiter.setState(new TakeOrderState(customer, waiter));
+					return true;
+				}
+			}
+			return false;
+		}
+
+		
+	}
+	
+	public synchronized boolean waiterFindCook(Customer customer, Waiter waiter) {
+		synchronized(chefList) {
+			for(Chef chef : chefList) {
+				if(!(chef.getState() instanceof state.chef_state.CookingState)) {
+					customer.setState(new WaitCookState(chef));
+					waiter.setState(new BringOrderState(chef, customer, waiter));						
+					return true;
+					
+				}
+
+			}
+			return false;
+		}
+	}
+	
+	public synchronized boolean cookDoneFindIdleWaiter(Customer customer, Chef chef) {
+		synchronized (waiterList) {
+			for (Waiter waiter : waiterList) {
+				if(waiter.getState() instanceof IdleState) {
+					chef.setState(new state.chef_state.IdleState());
+					waiter.setState(new ServeState(customer, chef, waiter));
+					customer.setState(new WaitFoodState(waiter));
+					return true;
+				}
+			}
+			return false;
+		}
+	}
+	
+	public synchronized void customerLeave(Customer customer, Chef chef) {
+		int add = chef.getSkill() * 30;
+		restaurant.addGold(add);
+		restaurant.addScore(add);
+		removeCustomer(customer);
+	}
+	
+
+	
+	
+	public void customerRageLeave(Customer customer) {
+		removeCustomer(customer);
+	}
+
+	
+	//Restaurant
+	public Restaurant getRestaurant() {
+		return restaurant;
+	}
+	
+	public void upgradeSeat() {
+		if(restaurant.getUpgradeSeatCost() > restaurant.getGold()) {
+			System.out.println("Money not enough");
+			return;
+		}
+		restaurant.upSeat();
+	}
+	
+	
+	// Customer Section
+	public ArrayList<Customer> getCustomerList() {
+		return customerList;
+	}
+	public void setCustomerList(ArrayList<Customer> customerList) {
+		this.customerList = customerList;
+	}
+	
+	public void removeCustomer(Customer customer) {
+		customerList.remove(customer);
+	}
+	
+	public Integer getCustomerCount() {
+		return customerList.size();
+	}
+	
+	public boolean restaurantIsFull() {
+		return customerList.size() >= restaurant.getSeat();
+	}
+	
+	public void addThread(Customer t) {
+		customerList.add(t);
+	}
+	
+	public Customer getCustomer(int index) {
+		return customerList.get(index);
+	}
+	// =================================================
+	
+	// waiter Section
+	public ArrayList<Waiter> getWaiterList() {
+		return waiterList;
+	}
+
+	public Integer getWaiterCount() {
+		return waiterList.size();
+	}
+	
+	public Integer getAddWaiterCost() {
+		return 150 * waiterList.size();
+	}
+	
+	public void voidUpgradeWaiterSpeed(int index) {
+		if(restaurant.getGold() < 150) {
+			System.out.println("Gold not enough");
+			return;
+		}
+		Waiter waiter = waiterList.get(index);
+		if(waiter.getSpeed() >= 5) {
+			System.out.println("Max Speed Acquired!");
+			return;
+		}
+		waiter.upgradeSpeed();
+	}
+	
+	public void addWaiter() {
+		
+		if(restaurant.getGold() < getAddWaiterCost()) {
+			System.out.println("Gold not enough");
+			return;
+		}
+		if(waiterList.size() >= 7) {
+			System.out.println("Max Waiter Acquired!");
+			return;
+		}
+		waiterList.add(WaiterFactory.createWaiter(this));
+	}
+	// =================================================
+	
+	
+	
+	
+	
+	// Chef Section
+	public ArrayList<Chef> getChefList() {
+		return chefList;
+	}
+
+	public void addChef() {
+		if(restaurant.getGold() < getAddChefCost()) {
+			System.out.println("Gold not enough");
+			return;
+		}
+		if(chefList.size() >= 7) {
+			System.out.println("Max Chef Acquired!");
+			return;
+		}
+		chefList.add(ChefFactory.createChef(this));
+	}
+	
+	public Integer getAddChefCost() {
+		return 200 * chefList.size();
+	}
+	
+	public Integer getChefCount() {
+		return chefList.size();
+	}
+	
+	public void upgradeChefSkill(int index) {
+		if(restaurant.getGold()< 150) {
+			System.out.println("Insufficient Gold");
+			return;
+		}
+		Chef chef = chefList.get(index);
+		if(chef.getSpeed() >= 5) {
+			System.out.println("Max skill Reached");
+			return;
+		}
+
+		
+		chef.upgradeSkill();
+	}
+	
+	// ===================================================
+	
+	
+	
+	
+	// General Section
+	public void upgradeSpeed(Worker worker) {
+		if(worker.getSpeed() >= 5) {
+			System.out.println("Max Level Reached");
+			return;
+		}
+		if(restaurant.getGold() < 150) {
+			System.out.println("Insufficient Gold");
+			return;
+		}
+		
+		worker.upgradeSpeed();
+	}
+	
+	
+	public boolean checkName(String name) {
+		for(Customer c : customerList) {
+			if(c.getName().equals(name)) return false;
+		}
+		for(Chef c : chefList) {
+			if(c.getName().equals(name)) return false;
+		}
+		for(Waiter w : waiterList) {
+			if(w.getName().equals(name)) return false;
+		}
+		
+		return true;
+	}
+	
+}

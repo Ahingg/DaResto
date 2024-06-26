@@ -1,0 +1,171 @@
+package model;
+
+import java.util.ArrayList;
+
+import threads.CustomerThread;
+
+public class Restaurant {
+	private String name;
+	private Integer gold;
+	private Integer seat;
+	private ArrayList<CustomerThread> customerList;
+	private ArrayList<Waiter> waiterList;
+	private ArrayList<Chef> chefList;
+	public Restaurant() {
+		super();
+		this.name = "";
+		this.gold = 1300;
+		this.seat = 4;
+		this.customerList = new ArrayList<>();
+		this.waiterList = new ArrayList<>();
+		this.chefList =  new ArrayList<>();
+	}
+	
+	
+	// Seat Section
+	public Integer getSeat() { return seat; }
+
+	public void upSeat() {
+		if(seat >= 13) {
+			System.out.println("Max Seat Reached!");
+			return;
+		}
+		this.seat++;
+	}
+	
+	
+	
+	public Integer getUpgradeSeatCost() { return 100 * seat; }
+
+	public Integer getAvailableSeats() { return seat - customerList.size(); }
+	// =================================================
+	
+	// Name Section
+	public String getName() { return name; }
+	public void setName(String name) { this.name = name; }
+	// =================================================
+	
+	
+	// Gold Section
+	public Integer getGold() {
+		return gold;
+	}
+	public void setGold(Integer gold) {
+		this.gold = gold;
+	}
+	// =================================================
+	
+	
+	// Customer Section
+	public ArrayList<CustomerThread> getCustomerList() {
+		return customerList;
+	}
+	public void setCustomerList(ArrayList<CustomerThread> customerList) {
+		this.customerList = customerList;
+	}
+	
+	public void removeCustomer(CustomerThread customer) {
+		customerList.remove(customer);
+	}
+	
+	public boolean restaurantIsFull() {
+		return customerList.size() >= seat;
+	}
+	
+	public void addThread(CustomerThread t) {
+		customerList.add(t);
+	}
+	// =================================================
+	
+	
+	
+	// waiter Section
+	public ArrayList<Waiter> getWaiterList() {
+		return waiterList;
+	}
+
+	public Integer getAddWaiterCost() {
+		return 150 * waiterList.size();
+	}
+	
+	public void addWaiter(Waiter waiter) {
+		if(waiterList.size() >= 7) {
+			System.out.println("Max Waiter Acquired!");
+			return;
+		}
+		waiterList.add(waiter);
+	}
+	// =================================================
+	
+
+	
+	// Chef Section
+	public ArrayList<Chef> getChefList() {
+		return chefList;
+	}
+
+	public void addChef(Chef chef) {
+		if(chefList.size() >= 7) {
+			System.out.println("Max Chef Acquired!");
+			return;
+		}
+		chefList.add(chef);
+	}
+	
+	public Integer getAddChefCost() {
+		return 200 * chefList.size();
+	}
+	
+	public void upgradeCook(Chef chef) {
+		if(chef.getSpeed() >= 5) {
+			System.out.println("Max skill Reached");
+			return;
+		}
+		if(gold < 150) {
+			System.out.println("Insufficient Gold");
+			return;
+		}
+		
+		chef.upgradeSkill();
+	}
+	
+	// ===================================================
+	
+
+	
+	// General Section
+	public void upgradeSpeed(Worker worker) {
+		if(worker.getSpeed() >= 5) {
+			System.out.println("Max Level Reached");
+			return;
+		}
+		if(gold < 150) {
+			System.out.println("Insufficient Gold");
+			return;
+		}
+		
+		worker.upgradeSpeed();
+	}
+	
+	public boolean checkName(String name) {
+		for(CustomerThread c : customerList) {
+			if(c.getCustomer().getName().equals(name)) return false;
+		}
+		for(Chef c : chefList) {
+			if(c.getName().equals(name)) return false;
+		}
+		for(Waiter w : waiterList) {
+			if(w.getName().equals(name)) return false;
+		}
+		
+		return true;
+	}
+	
+	
+	public boolean compareBalance(Integer reqGold) {
+		return gold >= reqGold;
+	}
+	
+	
+	// ===================================================
+}

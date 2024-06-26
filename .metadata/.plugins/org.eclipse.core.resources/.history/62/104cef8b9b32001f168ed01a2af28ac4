@@ -1,0 +1,26 @@
+package threads;
+
+import game.PlayGame;
+import utils.Printer;
+
+public class PrinterThread extends Thread{
+	private PlayGame pg;
+	public PrinterThread(PlayGame pg) {
+		 this.pg = pg;
+	}
+	
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		while(!pg.getPauseState()) {
+			try {
+				if(gameEnd) break;
+				Printer.PrintGameStatus(mediator);
+				Thread.sleep(1000);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+}

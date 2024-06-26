@@ -1,0 +1,26 @@
+package threads;
+
+import game.PlayGame;
+import utils.Printer;
+
+public class PrinterThread extends Thread{
+	private Mediator mediator;
+	public PrinterThread(Mediator.mediator) {
+		 this.pg = pg;
+	}
+	
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		while(!pg.getPauseState()) {
+			try {
+				if(pg.getEndState()) break;
+				Printer.PrintGameStatus(pg.getMediator());
+				Thread.sleep(1000);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+}

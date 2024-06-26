@@ -1,0 +1,8 @@
+package threads;
+
+public class PrinterThread extends Thread{
+	private PlayGame pg;
+	public PrinterThread() {
+		
+	}
+}

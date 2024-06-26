@@ -1,0 +1,8 @@
+package state;
+
+import model.Customer;
+public interface CustomerState {
+	void changeState(Customer state);
+	
+	String getPrintFormat();
+}

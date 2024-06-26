@@ -1,0 +1,70 @@
+package model;
+
+import mediator.Mediator;
+import state.CustomerState;
+import state.customer_state.OrderState;
+import threads.CustomerToleranceCounter;
+
+public class Customer{
+
+	private String name;
+	private Integer tolerance;
+	private Mediator mediator;
+	private  CustomerState state;
+	public Customer(String name, Mediator mediator) {
+		// TODO Auto-generated constructor stub
+		this.name = name;
+		this.tolerance = 12;
+		this.mediator = mediator;
+		
+	}
+	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public Integer getTolerance() {
+		return tolerance;
+	}
+	public void setTolerance(Integer tolerance) {
+		this.tolerance = tolerance;
+	}
+	
+	public void decreaseTolerance() { tolerance --; }
+	
+	public CustomerState getState() {
+		return state;
+	}
+	public void setState(CustomerState state) {
+		this.state = state;
+	}
+	
+	public void nextState() {
+		this.state.nextState(this);
+	}
+	
+	public void customerOrder() {
+		CustomerToleranceCounter counter = new CustomerToleranceCounter(2, this);
+		counter.start();
+		
+		Thread a = new Thread(() -> {
+			do {
+				try {
+					mediator.customerOrder(this);
+					Thread.sleep(100);
+					System.out.println(name + state.getPrintFormat());
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			
+			}while(state instanceof OrderState);
+		});
+		a.setName("Thread kecil" + name);
+		a.start();
+		
+		counter.stopCounting();
+	}
+}

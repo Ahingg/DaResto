@@ -1,0 +1,26 @@
+package state.waiter_state;
+
+import model.Waiter;
+import state.WaiterState;
+
+public class BringOrderState implements WaiterState{
+
+	@Override
+	public void next(Waiter waiter) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void reset(Waiter waiter) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getPrintFormat() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

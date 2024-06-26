@@ -1,0 +1,63 @@
+package threads;
+
+import java.util.ArrayList;
+import java.util.Random;
+
+import factory.CustomerThreadGenerator;
+import model.Restaurant;
+import observer.Broadcaster;
+import observer.Observer;
+
+public class MainThread extends Thread implements Broadcaster{
+	private Restaurant restaurant;
+	private boolean onPause = false;
+	private ArrayList<Observer> observers;
+	Random r = new Random();
+	public MainThread(Restaurant restaurant) {
+		// TODO Auto-generated constructor stub
+		this.restaurant = restaurant;
+		observers = new ArrayList<>();
+	}
+	
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		while(true) {
+			try {
+				Thread.sleep(4000);
+				ArrayList<CustomerThread> clist = restaurant.getCustomerList();
+				for(CustomerThread ct : clist) {
+					System.out.println(ct.getCustomer().getName());
+				}
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			if(onPause || restaurant.restaurantIsFull()) continue;
+			
+			int n = r.nextInt(4);
+			if(n == 1) {
+				for (Observer observer : observers) {
+					observer.generateCustomer();
+				}
+			}
+		}
+		
+		
+	}
+	@Override
+	public void addObserver(CustomerThreadGenerator t) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void removeObserver(CustomerThreadGenerator t) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void notifyObserver(CustomerThreadGenerator t) {
+		// TODO Auto-generated method stub
+		
+	}
+}

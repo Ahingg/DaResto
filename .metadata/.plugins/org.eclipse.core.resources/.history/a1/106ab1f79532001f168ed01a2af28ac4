@@ -1,0 +1,7 @@
+package factory;
+
+public class CustomerGenerator {
+	public CustomerGenerator() {
+		// TODO Auto-generated constructor stub
+	}
+}

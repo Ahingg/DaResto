@@ -1,0 +1,7 @@
+package threads;
+
+public class PrinterThread extends Thread{
+	public PrinterThread() {
+		
+	}
+}

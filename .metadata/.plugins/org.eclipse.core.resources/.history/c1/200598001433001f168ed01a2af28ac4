@@ -1,0 +1,77 @@
+package facade;
+
+import java.util.Scanner;
+
+import factory.ChefFactory;
+import factory.CustomerGenerator;
+import factory.WaiterFactory;
+import mediator.Mediator;
+import model.Restaurant;
+import singleton.RestaurantSingleton;
+import threads.EnterListener;
+import threads.MainThread;
+import threads.PrinterThread;
+import utils.Printer;
+
+public class GameFacade {
+	public static volatile boolean paused = false;
+	public static volatile boolean end = false;
+	private Mediator mediator;
+	Restaurant restaurant;
+	Scanner sc = new Scanner(System.in);
+	public void initGame() {
+		restaurant = RestaurantSingleton.getInstance();
+		System.out.print("Insert Your Restaurant Name[3-15] : ");
+		String name = sc.nextLine();
+		
+		restaurant.setName(name);
+		
+		
+		mediator = new Mediator(restaurant);
+		mediator.addWaiter(WaiterFactory.createWaiter(mediator));
+		mediator.addWaiter(WaiterFactory.createWaiter(mediator));
+		mediator.addChef(ChefFactory.createChef(mediator));
+		mediator.addChef(ChefFactory.createChef(mediator));
+		
+		
+		MainThread mainThread = new MainThread(mediator);
+		CustomerGenerator customerThreadGenerator = new CustomerGenerator(mediator);
+		
+		mainThread.addObserver(customerThreadGenerator);
+		mainThread.start();
+		
+		EnterListener el = new EnterListener(this);
+		el.setName("EnterListenerThread");
+		el.start();
+		PrinterThread pt = new PrinterThread(mediator);
+		pt.setName("PrinterThread");
+		pt.start();
+		
+
+	}
+	
+	public void PauseMenu() {
+		while(true) {
+			Printer.printPauseMainMenu(restaurant);
+			int choice = sc.nextInt();
+			if(choice == 1) {
+				paused = false;
+				break;
+			}
+			else if (choice == 2) {
+				
+			}
+		}
+
+	}
+	
+	public void upgradeMenu() {
+		Printe
+	}
+	
+	public static void pauseGame() { paused = true; }
+	
+	public static void resumeGame() { paused = false; }
+	
+	public static void endGame() { end = true; }
+}

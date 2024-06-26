@@ -1,0 +1,29 @@
+package state.chef_state;
+
+import model.Chef;
+import model.Customer;
+import state.ChefState;
+
+public class DoneState implements ChefState{
+	Customer customer;
+	
+	public DoneState(Customer customer, Chef chef) {
+		// TODO Auto-generated constructor stub
+		this.customer = customer;
+		
+	}
+
+	@Override
+	public void reset(Chef chef) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getPrintFormat() {
+		// TODO Auto-generated method stub
+		return "done<"+ customer.getName() +">";
+	}
+	
+	
+}

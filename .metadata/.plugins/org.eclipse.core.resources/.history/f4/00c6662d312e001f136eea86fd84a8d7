@@ -1,0 +1,33 @@
+package threads;
+
+import factory.CustomerThreadGenerator;
+import model.Restaurant;
+import observer.Broadcaster;
+import singleton.RestaurantSingleton;
+
+public class MainThread extends Thread implements Broadcaster{
+	private Restaurant restaurant = RestaurantSingleton.getInstance();
+	private boolean onPause = false;
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		while(true) {
+			
+		}
+	}
+	@Override
+	public void addObserver(CustomerThreadGenerator t) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void removeObserver(CustomerThreadGenerator t) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void notifyObserver(CustomerThreadGenerator t) {
+		// TODO Auto-generated method stub
+		
+	}
+}

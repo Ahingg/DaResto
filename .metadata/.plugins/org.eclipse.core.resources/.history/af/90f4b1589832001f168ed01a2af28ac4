@@ -1,0 +1,7 @@
+package observer;
+
+import model.Restaurant;
+
+public interface Observer {
+	public void generateCustomer();
+}

@@ -1,0 +1,10 @@
+package threads;
+
+import game.PlayGame;
+
+public class PrinterThread extends Thread{
+	private PlayGame pg;
+	public PrinterThread(PlayGame pg) {
+		
+	}
+}

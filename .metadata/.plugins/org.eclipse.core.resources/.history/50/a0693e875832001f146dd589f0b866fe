@@ -1,0 +1,56 @@
+package threads;
+
+import mediator.Mediator;
+import model.Customer;
+import model.Waiter;
+import state.customer_state.OrderState;
+
+public class CustomerThread extends Thread{
+	
+	private Customer customer;
+	private Mediator mediator;
+	private boolean onPause = false;
+	public CustomerThread(Customer customer, Mediator mediator) {
+		this.customer = customer;
+		this.mediator = mediator;
+	}
+	
+	public Customer getCustomer() {
+		return customer;
+	}
+	
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		customer.setState(new OrderState(customer));
+		System.out.println("a");
+		OrderState o =(OrderState) customer.getState();
+		o.startBomb();
+		if(customer.getState() instanceof OrderState) {
+			System.out.println("orderState");
+			return;
+		}
+		while(customer.getState() instanceof OrderState) {
+			if(onPause) continue;
+			if(customer.getTolerance() <= 0) {
+				mediator.customerRageLeave(this);
+				return;
+			}
+			
+			order();
+			try {
+				Thread.sleep(100);
+				
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+	}
+	
+	private void order() {
+		mediator.customerOrder(customer);
+	}
+	
+}

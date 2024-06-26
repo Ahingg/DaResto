@@ -1,0 +1,23 @@
+package threads;
+
+import model.Customer;
+
+public class CustomerToleranceCounter extends Thread{
+	private int interval;
+	private Customer customer;
+	
+	public CustomerToleranceCounter(int interval, Customer customer) {
+		this.interval = interval;
+		this.customer = customer;
+	}
+	
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	private void startCounting() {
+		
+	}
+}
