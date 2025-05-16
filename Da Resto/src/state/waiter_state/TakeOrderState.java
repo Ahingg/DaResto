@@ -11,7 +11,6 @@ public class TakeOrderState implements WaiterState{
 	private Customer customer;
 
 	public TakeOrderState(Customer customer, Waiter waiter) {
-		// baru tau bisa gini :v
 		if(customer == null) return;
 		this.customer = customer;
 		new Thread(() -> {
@@ -23,7 +22,6 @@ public class TakeOrderState implements WaiterState{
 				waiter.setState(new state.waiter_state.WaitCookState(customer, waiter));
 				customer.setState(new WaitDeliverState(customer));
 			} catch (InterruptedException e) {
-				// TODO: handle exception
 				return;
 			}
 		}).start();
@@ -36,14 +34,11 @@ public class TakeOrderState implements WaiterState{
 
 	@Override
 	public void reset(Waiter waiter) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void changeState(WaiterState state) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

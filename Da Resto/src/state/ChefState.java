@@ -1,9 +1,6 @@
 package state;
 
-import model.Chef;
 
-public interface ChefState {
-	void reset(Chef chef);
-	
+public interface ChefState {	
 	String getPrintFormat();
 }

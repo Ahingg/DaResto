@@ -12,14 +12,12 @@ public class PrinterThread extends Thread{
 	
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
 		while(!GameFacade.end) {
 			try {
 				if(GameFacade.paused) continue;
 				Printer.PrintGameStatus(mediator);
 				Thread.sleep(1000);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

@@ -19,7 +19,6 @@ public class OrderingState  implements CustomerState{
 
 	@Override
 	public void nextState(Customer state) {
-		// TODO Auto-generated method stub
 		state.setState(new WaitDeliverState(state));
 	}
 	

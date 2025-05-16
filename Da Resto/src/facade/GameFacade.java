@@ -3,13 +3,11 @@ package facade;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-
-import factory.ChefFactory;
 import factory.CustomerGenerator;
-import factory.WaiterFactory;
 import mediator.Mediator;
 import model.HighScore;
 import model.Restaurant;
+import model.ScoreEntry;
 import singleton.RestaurantSingleton;
 import threads.EnterListener;
 import threads.MainThread;
@@ -96,26 +94,45 @@ public class GameFacade {
 		}
 	}
 	
+	private boolean checkGold(int cost) {
+		return restaurant.getGold() >= cost;
+	}
+	
+	private void addEmployee(String type) {
+		if(type.equals("waiter")) {
+			mediator.addWaiter();
+		}else {
+			mediator.addChef();
+		}
+	}
+	
+	private void hireEmployee(String type) {
+		int cost;
+		if(type.equals("waiter")) {
+			cost = mediator.getAddWaiterCost();
+		}else {
+			cost = mediator.getAddChefCost();
+		}
+		
+		if(!checkGold(cost)) {
+			System.out.println("Insufficient Gold");
+			return;
+		}
+		
+		restaurant.reduceGold(cost);
+		addEmployee(type);
+	}
+	
 	private void hireEmployeeMenu() {
 		while(true) {
 			Printer.printHireEmployeeMenu(mediator);
 			int choice = sc.nextInt();
 			sc.nextLine();
 			if(choice == 1) {
-				if(restaurant.getGold() < mediator.getAddWaiterCost()) {
-					System.out.println("Insufficient Gold");
-					return;
-				}
-				restaurant.reduceGold(mediator.getAddWaiterCost());
-				mediator.addWaiter();
+				hireEmployee("waiter");
 			}
 			else if (choice == 2) {
-				if(restaurant.getGold() < mediator.getAddChefCost()) {
-					System.out.println("Insufficient Gold");
-					return;
-				}
-				restaurant.reduceGold(mediator.getAddChefCost());
-				mediator.addChef();
+				hireEmployee("chef");
 			}
 			else if (choice == 3) {
 				return;
@@ -153,19 +170,17 @@ public class GameFacade {
 	
 	private void closeBusiness() {
         HighScore highScore = new HighScore();
-        int restaurantScore = restaurant.getGold();  // Assuming the restaurant's score is its gold
+        int restaurantScore = restaurant.getGold();  
         highScore.addHighScore(restaurant.getName(), restaurantScore);
         
-        // Print top 10 high scores
         System.out.println("Top 10 High Scores:");
-        ArrayList<HighScore.ScoreEntry> topScores = highScore.getTopScores();
+        ArrayList<ScoreEntry> topScores = highScore.getTopScores();
         for (int i = 0; i < topScores.size(); i++) {
-            HighScore.ScoreEntry entry = topScores.get(i);
+            ScoreEntry entry = topScores.get(i);
             String highlight = entry.getName().equals(restaurant.getName()) ? " <<<< " : "";
             System.out.println((i + 1) + ". " + entry.getName() + ": " + entry.getScore() + highlight);
         }
 
-        // Wait for the user to press Enter to exit
         System.out.println("Press Enter to exit...");
         try {
             System.in.read();

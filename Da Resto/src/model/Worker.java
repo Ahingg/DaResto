@@ -8,7 +8,6 @@ public abstract class Worker{
 	private Integer speed;
 	private Mediator mediator;
 	public Worker(String name, Mediator mediator) {
-		// TODO Auto-generated constructor stub
 		this.name = name;
 		this.speed = 1;
 		this.mediator = mediator;

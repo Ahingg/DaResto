@@ -17,7 +17,6 @@ public class CustomerToleranceCounter extends Thread{
 	
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
 		startCounting();
 	}
 	

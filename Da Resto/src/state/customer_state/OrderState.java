@@ -24,7 +24,6 @@ public class OrderState implements CustomerState{
 						Thread.sleep(100);
 					}while(customer.getState() instanceof OrderState);
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} 
 			});
@@ -36,13 +35,11 @@ public class OrderState implements CustomerState{
 
 	@Override
 	public String getPrintFormat() {
-		// TODO Auto-generated method stub
 		return "order";
 	}
 
 	@Override
 	public void nextState(Customer state) {
-		// TODO Auto-generated method stub
 		
 	}
 

@@ -10,7 +10,6 @@ import state.customer_state.EatState;
 public class ServeState  implements WaiterState{
 	Customer customer;
 	public ServeState(Customer customer, Chef chef, Waiter waiter) {
-		// TODO Auto-generated constructor stub
 		if(customer == null) {
 			waiter.resetState();
 			chef.resetState();
@@ -27,7 +26,6 @@ public class ServeState  implements WaiterState{
 				customer.setState(new EatState(customer, chef));
 				waiter.resetState();
 			} catch (Exception e) {
-				// TODO: handle exception
 				e.printStackTrace();
 			}
 		}).start();;
@@ -35,19 +33,16 @@ public class ServeState  implements WaiterState{
 	
 	@Override
 	public void reset(Waiter waiter) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public String getPrintFormat() {
-		// TODO Auto-generated method stub
 		return "serving<"+ customer.getName() +">";
 	}
 
 	@Override
 	public void changeState(WaiterState state) {
-		// TODO Auto-generated method stub
 		
 	}
 

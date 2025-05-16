@@ -10,7 +10,6 @@ public class Customer{
 	private Mediator mediator;
 	private  CustomerState state;
 	public Customer(String name, Mediator mediator) {
-		// TODO Auto-generated constructor stub
 		this.name = name;
 		this.tolerance = 12;
 		this.mediator = mediator;

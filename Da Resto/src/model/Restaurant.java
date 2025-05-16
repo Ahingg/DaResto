@@ -15,7 +15,6 @@ public class Restaurant {
 		this.score = 0;
 	}
 	
-	
 	// Seat Section
 	public Integer getSeat() { return seat; }
 
@@ -27,17 +26,14 @@ public class Restaurant {
 		this.seat++;
 	}
 	
-	
-	
 	public Integer getUpgradeSeatCost() { return 100 * seat; }
 
 	public Integer getAvailableSeats(Integer customerCount) { return seat - customerCount; }
-	// =================================================
 	
 	// Name Section
 	public String getName() { return name; }
+	
 	public void setName(String name) { this.name = name; }
-	// =================================================
 	
 	
 	// Gold Section
@@ -52,16 +48,11 @@ public class Restaurant {
 	public void reduceGold(Integer gold) {
 		this.gold -= gold;
 	}
-	// =================================================
-	
 	
 	// Score Section
-	
 	public Integer getScore() {
 		return score;
 	}
-
-
 
 	public void addScore(Integer score) {
 		this.score += score;
@@ -71,6 +62,4 @@ public class Restaurant {
 	public boolean compareBalance(Integer reqGold) {
 		return gold >= reqGold;
 	}
-
-	// ===================================================
 }

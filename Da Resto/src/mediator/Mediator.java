@@ -2,9 +2,7 @@ package mediator;
 
 
 import java.util.ArrayList;
-
-import factory.ChefFactory;
-import factory.WaiterFactory;
+import factory.WorkerFactory;
 import model.Chef;
 import model.Customer;
 import model.Restaurant;
@@ -40,12 +38,10 @@ public class Mediator {
 	}
 	
 	public synchronized boolean  customerOrder(Customer customer) {
-		// Search for idle Waiter then change each of their ah apa lah dong pun mania itu
 		if(!(customer.getState() instanceof OrderState)) return true;
 		synchronized(waiterList) {
 			for(Waiter waiter :  waiterList) {
 				if(waiter.getState() instanceof IdleState) {
-					//change the state of both customer and waiter
 					customer.setState(new OrderingState(waiter));
 					waiter.setState(new TakeOrderState(customer, waiter));
 					return true;
@@ -54,7 +50,6 @@ public class Mediator {
 			return false;
 		}
 
-		
 	}
 	
 	public synchronized boolean waiterFindCook(Customer customer, Waiter waiter) {
@@ -93,13 +88,9 @@ public class Mediator {
 		removeCustomer(customer);
 	}
 	
-
-	
-	
 	public void customerRageLeave(Customer customer) {
 		removeCustomer(customer);
 	}
-
 	
 	//Restaurant
 	public Restaurant getRestaurant() {
@@ -143,7 +134,6 @@ public class Mediator {
 	public Customer getCustomer(int index) {
 		return customerList.get(index);
 	}
-	// =================================================
 	
 	// waiter Section
 	public ArrayList<Waiter> getWaiterList() {
@@ -182,13 +172,8 @@ public class Mediator {
 			System.out.println("Max Waiter Acquired!");
 			return;
 		}
-		waiterList.add(WaiterFactory.createWaiter(this));
+		waiterList.add((Waiter) WorkerFactory.createWorker(this, "waiter"));
 	}
-	// =================================================
-	
-	
-	
-	
 	
 	// Chef Section
 	public ArrayList<Chef> getChefList() {
@@ -201,7 +186,7 @@ public class Mediator {
 			System.out.println("Max Chef Acquired!");
 			return;
 		}
-		chefList.add(ChefFactory.createChef(this));
+		chefList.add((Chef) WorkerFactory.createWorker(this, "chef"));
 	}
 	
 	public Integer getAddChefCost() {
@@ -242,11 +227,6 @@ public class Mediator {
 		chef.upgradeSpeed();
 	}
 	
-	// ===================================================
-	
-	
-	
-	
 	// General Section
 	public void upgradeSpeed(Worker worker) {
 		if(worker.getSpeed() >= 5) {
@@ -260,7 +240,6 @@ public class Mediator {
 		
 		worker.upgradeSpeed();
 	}
-	
 	
 	public boolean checkName(String name) {
 		for(Customer c : customerList) {

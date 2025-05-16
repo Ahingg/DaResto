@@ -12,7 +12,6 @@ public class CustomerGenerator implements Observer{
 
 	@Override
 	public void generateCustomer() {
-		// TODO Auto-generated method stub
 		mediator.addCustomer(CustomerFactory.CreateCustomer(mediator));
 	}
 }

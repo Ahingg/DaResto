@@ -127,12 +127,6 @@ public class Printer {
 		System.out.printf("%10s |\n" , chef.getState().getPrintFormat());
 	}
 	
-	
-	
-	
-	
-	
-	
 	public static void printSpace(int x) {
 		for(int i = 0;i<x;i++) {
 			System.out.print(" ");

@@ -12,7 +12,6 @@ public class BringOrderState implements WaiterState{
 	private Chef chef;
 
 	public BringOrderState(Chef chef, Customer customer, Waiter waiter) {
-		// TODO Auto-generated constructor stub
 		this.chef = chef;
 		
 		if (customer != null) {
@@ -33,7 +32,6 @@ public class BringOrderState implements WaiterState{
 						chef.setState(new CookingState(chef, customer));
 					}
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}).start();;
@@ -49,24 +47,17 @@ public class BringOrderState implements WaiterState{
 	
 	@Override
 	public void reset(Waiter waiter) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public String getPrintFormat() {
-		// TODO Auto-generated method stub
 		return "bring order<" + chef.getName() + ">";
 	}
 
 	@Override
 	public void changeState(WaiterState state) {
-		// TODO Auto-generated method stub
 		
 	}
 	
-//	public Waiter getWaiter() {return waiter;}
-//	public Chef getChef() { return chef; }
-//	public Customer getCustomer (){ return customer; }
 
 }
