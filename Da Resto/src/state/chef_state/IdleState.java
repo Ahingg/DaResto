@@ -1,9 +1,9 @@
 package state.chef_state;
 
 import model.Chef;
-import state.ChefState;
+import state.State;
 
-public class IdleState implements ChefState	{
+public class IdleState implements State	{
 
 	public IdleState() {
 	}

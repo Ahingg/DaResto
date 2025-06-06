@@ -2,23 +2,14 @@ package model;
 
 import mediator.Mediator;
 
-public abstract class Worker{
+public class Worker extends Person{
 
-	private String name;
 	private Integer speed;
-	private Mediator mediator;
+	
 	public Worker(String name, Mediator mediator) {
-		this.name = name;
+		super(name, mediator);
+		// TODO Auto-generated constructor stub
 		this.speed = 1;
-		this.mediator = mediator;
-	}
-	
-	
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
 	}
 	
 	public void upgradeSpeed() {
@@ -32,7 +23,5 @@ public abstract class Worker{
 		this.speed = speed;
 	}
 
-	
-	public Mediator getMediator() { return mediator; } 
 
 }

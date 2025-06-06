@@ -2,8 +2,7 @@ package state;
 
 import model.Waiter;
 
-public interface WaiterState {
+public interface WaiterState extends State{
 	void reset(Waiter waiter);
 	void changeState(WaiterState state);
-	String getPrintFormat();
 }

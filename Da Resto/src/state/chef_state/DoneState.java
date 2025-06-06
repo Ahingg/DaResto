@@ -2,9 +2,9 @@ package state.chef_state;
 
 import model.Chef;
 import model.Customer;
-import state.ChefState;
+import state.State;
 
-public class DoneState implements ChefState{
+public class DoneState implements State{
 	public Customer customer;
 	
 	public DoneState(Customer customer, Chef chef) {

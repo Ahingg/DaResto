@@ -2,9 +2,9 @@ package state.chef_state;
 
 import model.Chef;
 import model.Customer;
-import state.ChefState;
+import state.State;
 
-public class CookingState implements ChefState{
+public class CookingState implements State{
 	private Customer customer;
 	public CookingState(Chef chef, Customer customer) {
 		if(customer != null) {

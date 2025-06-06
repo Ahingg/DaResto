@@ -3,27 +3,18 @@ package model;
 import mediator.Mediator;
 import state.CustomerState;
 
-public class Customer{
+public class Customer extends Person{
 
-	private String name;
+
 	private Integer tolerance;
-	private Mediator mediator;
 	private  CustomerState state;
+	
 	public Customer(String name, Mediator mediator) {
-		this.name = name;
+		super(name, mediator);
 		this.tolerance = 12;
-		this.mediator = mediator;
-		
 	}
+
 	
-	public Mediator getMediator () { return mediator; }
-	
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
 	public Integer getTolerance() {
 		return tolerance;
 	}
@@ -45,7 +36,7 @@ public class Customer{
 	}
 	
 	public void rageLeave() {
-		mediator.customerRageLeave(this);
+		getMediator().customerRageLeave(this);
 	}
 	
 }

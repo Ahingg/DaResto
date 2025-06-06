@@ -1,8 +1,4 @@
-/factory/
-/facade/
-/mediator/
-/model/
 /state/
-/main/
-/threads/
+/model/
+/mediator/
 /utils/
